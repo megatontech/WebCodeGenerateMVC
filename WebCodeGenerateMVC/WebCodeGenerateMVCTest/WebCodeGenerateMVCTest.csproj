@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{733E4EC3-9694-4684-8C9F-4334CEBCE610}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebCodeGenerateMVCTest</RootNamespace>
+    <AssemblyName>WebCodeGenerateMVCTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Class1.il" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebCodeGenerateMVC\WebCodeGenerateMVC.csproj">
+      <Project>{B1864305-3BA9-403E-8E59-1288DCD9017B}</Project>
+      <Name>WebCodeGenerateMVC</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <CompileDependsOn>
+      HideILFromCompile;
+      $(CompileDependsOn);
+      InitializeIL;
+      CoreDecompile;
+      CoreCompileIL;
+    </CompileDependsOn>
+  </PropertyGroup>
+  <Target Name="HideILFromCompile">
+    <ItemGroup>
+      <IL Include="@(Compile)" Condition="'%(Extension)'=='.il'" />
+      <Compile Remove="@(Compile)" Condition="'%(Extension)'=='.il'" />
+    </ItemGroup>
+  </Target>
+  <Target Name="InitializeIL">
+    <PropertyGroup>
+      <ILFile>@(IntermediateAssembly->'%(RootDir)%(Directory)%(Filename).il', ' ')</ILFile>
+      <ILResourceFile>@(IntermediateAssembly->'%(RootDir)%(Directory)%(Filename).res', ' ')</ILResourceFile>
+    </PropertyGroup>
+  </Target>
+  <Target Name="CoreDecompile" Inputs="@(IntermediateAssembly)" Outputs="$(ILFile)" Condition=" Exists ( @(IntermediateAssembly) ) ">
+    <GetFrameworkSdkPath>
+      <Output TaskParameter="Path" PropertyName="FrameworkSdkPath" />
+    </GetFrameworkSdkPath>
+    <PropertyGroup>
+      <ILDasm>"$(FrameworkSdkPath)bin\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(FrameworkSdkPath)bin\NETFX 4.0 Tools\ildasm.exe' ) ">
+      <ILDasm>"$(FrameworkSdkPath)bin\NETFX 4.0 Tools\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <Exec Command="$(ILDasm)" />
+    <ItemGroup>
+      <FileWrites Include="$(ILFile)" />
+      <FileWrites Include="$(ILResourceFile)" />
+    </ItemGroup>
+    <PropertyGroup>
+      <ILSource>$([System.IO.File]::ReadAllText($(ILFile)))</ILSource>
+      <Replacement>// method ${method} forwardref removed for IL import</Replacement>
+      <Pattern>\.method [^\)]+\) cil managed forwardref[^}]+} // end of method (?&lt;method&gt;[^ \r\t\n]+)</Pattern>
+      <ILSource>$([System.Text.RegularExpressions.Regex]::Replace($(ILSource), $(Pattern), $(Replacement)))</ILSource>
+      <Pattern>\.method [^\)]+\) cil managed[^\a]+"extern was not given a DllImport attribute"[^}]+} // end of method (?&lt;method&gt;[^ \r\t\n]+)</Pattern>
+      <ILSource>$([System.Text.RegularExpressions.Regex]::Replace($(ILSource), $(Pattern), $(Replacement)))</ILSource>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(ILFile)" Lines="$(ILSource)" Overwrite="true" />
+    <PropertyGroup>
+      <ILSource />
+    </PropertyGroup>
+    <Delete Files="@(IntermediateAssembly)" />
+  </Target>
+  <Target Name="CoreCompileIL" Inputs="@(IL)" Outputs="@(IntermediateAssembly)">
+    <GetFrameworkPath>
+      <Output TaskParameter="Path" PropertyName="FrameworkPath" />
+    </GetFrameworkPath>
+    <PropertyGroup>
+      <ILAsm>"$(FrameworkPath)\ilasm.exe" /nologo /quiet /output:@(IntermediateAssembly->'"%(FullPath)"', ' ')</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(FileAlignment)' != '' ">
+      <ILAsm>$(ILAsm) /alignment=$(FileAlignment)</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(BaseAddress)' != '' ">
+      <ILAsm>$(ILAsm) /base=$(BaseAddress)</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(OutputType)' == 'Library' ">
+      <ILAsm>$(ILAsm) /dll</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(DebugType)' == 'pdbonly' ">
+      <ILAsm>$(ILAsm) /pdb</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(DebugType)' == 'full' ">
+      <ILAsm>$(ILAsm) /debug</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Optimize)' == 'true' ">
+      <ILAsm>$(ILAsm) /optimize</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
+      <ILAsm>$(ILAsm) /pe64 /x64</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Platform)' == 'Itanium' ">
+      <ILAsm>$(ILAsm) /pe64 /itanium</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(AssemblyOriginatorKeyFile)' != '' ">
+      <ILAsm>$(ILAsm) /key:"$(AssemblyOriginatorKeyFile)"</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(ILResourceFile)' ) ">
+      <ILAsm>$(ILAsm) /resource:"$(ILResourceFile)"</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(ILFile)' ) ">
+      <ILAsm>$(ILAsm) "$(ILFile)"</ILAsm>
+    </PropertyGroup>
+    <Exec Command="$(ILAsm) @(IL->'&quot;%(FullPath)&quot;', ' ')" />
+    <ItemGroup>
+      <FileWrites Include="@(IntermediateAssembly->'%(RootDir)%(Directory)DesignTimeResolveAssemblyReferencesInput.cache', ' ')" />
+    </ItemGroup>
+    <Touch Files="$(ILFile)" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
